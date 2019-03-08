@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="//g.alicdn.com/dingding/dingtalk-jsapi/2.0.57/dingtalk.open.js"></script>
+    <script>
+        dd.ready(function () {
+            // dd.ready参数为回调函数，在环境准备就绪时触发，jsapi的调用需要保证在该回调函数触发后调用，否则无效。
+            dd.runtime.permission.requestAuthCode({
+                corpId: "ding064ce37e8c6fff8435c2f4657eb6378f",
+                onSuccess: function (result) {
+                    // dd.device.notification.alert({
+                    //     message: JSON.stringify(result),
+                    //     title: "提示",//可传空
+                    //     buttonName: "收到",
+                    //     onSuccess: function () {
+                    //         //onSuccess将在点击button之后回调
+                    //         /*回调*/
+                    //
+                    //     },
+                    //     onFail: function (err) {
+                    //     }
+                    // });
+                    dd.biz.util.openLink({
+                        url: "http://192.168.0.147:8001/get_ding_shenpi/",//要打开链接的地址
+                        onSuccess: function (result) {
+                            /**/
+                        },
+                        onFail: function (err) {
+                        }
+                    })
+                },
+                onFail: function (err) {
+                    dd.device.notification.alert({
+                        message: '失败',
+                        title: "提示",//可传空
+                        buttonName: "收到",
+                        onSuccess: function () {
+                            //onSuccess将在点击button之后回调
+                            /*回调*/
+                        },
+                        onFail: function (err) {
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
