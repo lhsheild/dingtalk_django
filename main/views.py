@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from main.models import UserInfo
-from dingtalk.client.api import Bpms
+from main.models import UserInfo, Publisher
 
 import time
 
@@ -8,6 +7,10 @@ import time
 # Create your views here.
 def index(request):
     return render(request, 'main.html')
+
+
+def mi(request):
+    return render(request, 'MISHOP_TEST.html')
 
 
 def login(request):
@@ -37,21 +40,48 @@ def add_user(request):
         return redirect('/user_list/')
 
 
+def publisher_list(request):
+    object = Publisher.objects.all()
+    return render(request, 'ORM_publisher_list.html', {'publisher_list': object})
+
+
+def add_publisher(request):
+    if request.method == 'GET':
+        return render(request, 'ORM_add_publisher.html')
+    else:
+        publisher_name = request.POST.get('publisher')
+        if publisher_name:
+            Publisher.objects.create(title=publisher_name)
+            return redirect('/publisher_list/')
+        else:
+            error_msg = '出版社不能为空!'
+        return render(request, 'ORM_add_publisher.html', {'error':error_msg})
+
+
+def delete_publisher(request):
+    if request.method == 'GET':
+        delete_id = request.GET.get('id')
+        if delete_id:
+            del_obj = Publisher.objects.get(id=delete_id)
+            del_obj.delete()
+            return redirect('/publisher_list/')
+        else:
+            return HttpResponse('找不到该数据')
+
+
+def edit_publisher(request):
+    if request.method == 'GET':
+        edit_id = request.GET.get('id')
+        if edit_id:
+            edit_obj = Publisher.objects.get(id=edit_id)
+            return render(request, 'ORM_edit_publisher.html', {'publisher':edit_obj})
+    else:
+        new_publisher_name = request.POST.get('publisher_name')
+        edit_obj = Publisher.objects.get(id=request.POST.get('id'))
+        edit_obj.title = new_publisher_name
+        edit_obj.save()
+        return redirect('/publisher_list/')
+
+
 def ding_login(request):
     return render(request, 'ding_login.html')
-
-
-def get_ding_shenpi(request):
-    process_code = 'PROC-ELYJ1A4W-7WJ39FFR3417CDU1EEOZ2-D8YFWXSJ-2'
-    user_id = '250426260736250483'
-    dt = '2019-03-08 00:00:00'
-    ts = time.strptime(dt, "%Y-%m-%d %H:%M:%S")
-    time_stamp = time.mktime(ts)
-    process_instance_id = '201903081609000566214'
-    print(time_stamp)
-    sp_client = Bpms()
-    # sp_list = sp_client.processinstance_list(process_code, dt, userid_list=[user_id])
-    # print(sp_list)
-    res = sp_client.processinstance_get(process_instance_id='201903081609000566214')
-    print(res)
-    return HttpResponse("测试获取审批实例")

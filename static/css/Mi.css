@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+ul{
+    list-style-type: none;
+}
+
+
+.nav{
+    background-color: rgba(0,0,0,0.5);
+    padding: 15px 0;
+}
+
+
+.center{
+    width: 80%;
+    margin: auto;
+}
+
+
+.clearfix:after,
+.clearfix:before{
+    clear: both;
+    content: '';
+    display: block;
+}
+
+
+.nav-left li{
+    float: left;
+    padding-right: 20px;
+}
+
+
+.nav-right{
+    float: right;
+}
+
+
+.nav-right a{
+    padding-left: 10px;
+}

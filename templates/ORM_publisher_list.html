@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="cn-zh">
+<head>
+    <meta charset="UTF-8">
+    <title>出版社</title>
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+</head>
+<body>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>出版社</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for publisher in publisher_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ publisher.id }}</td>
+        <td>{{ publisher.title }}</td>
+        <td>
+            <a class="btn btn-danger" href="/delete_publisher/?id={{ publisher.id }}">删除</a>
+            <a class="btn btn-info" href="/edit_publisher/?id={{ publisher.id }}">编辑</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-info" href="/add_publisher/">添加出版社</a>
+</body>
+</html>

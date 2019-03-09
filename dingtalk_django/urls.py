@@ -16,13 +16,22 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from main import views as main_views
+from dingding import views as ding_views
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^login/', main_views.login),
     url(r'^user_list/', main_views.user_list),
     url(r'^add_user/', main_views.add_user),
+    url(r'^publisher_list/', main_views.publisher_list),
+    url(r'^add_publisher/', main_views.add_publisher),
+    url(r'^delete_publisher/', main_views.delete_publisher),
+    url(r'^edit_publisher/', main_views.edit_publisher),
     url(r'^ding_login/', main_views.ding_login),
-    url(r'^get_ding_shenpi/', main_views.get_ding_shenpi),
+    url(r'^get_ding_shenpi/', ding_views.ding_shenpi),
+    url(r'mi/', main_views.mi),
     url(r'^', main_views.index),
+
+    # dingding
+    url(r'^dingding/', ding_views.ding_shenpi),
 ]

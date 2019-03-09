@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'booksmanager.apps.BooksmanagerConfig',
+    'dingding.apps.DingdingConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mydb',
         'USER':'root',
-        'PASSWORD':'',
+        'PASSWORD':123456,
         'HOST':'127.0.0.1',
         'PORT':'3306'
     }
