@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from main import views as main_views
 from dingding import views as ding_views
+from booksmanager import views as books_views
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
@@ -30,8 +31,13 @@ urlpatterns = [
     url(r'^ding_login/', main_views.ding_login),
     url(r'^get_ding_shenpi/', ding_views.ding_shenpi),
     url(r'mi/', main_views.mi),
-    url(r'^', main_views.index),
+
 
     # dingding
     url(r'^dingding/', ding_views.ding_shenpi),
+
+    # booksmanager
+    url(r'^books_list/', books_views.books_list),
+
+    url(r'^', main_views.index),
 ]

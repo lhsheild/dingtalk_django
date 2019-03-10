@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍展示</title>
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+</head>
+<body>
+<h1>所有的书籍都在这里！</h1>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>id</th>
+        <th>title</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in books %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.id }}</td>
+            <td>{{ i.title }}</td>
+            <td>{{ i.publisher.name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
