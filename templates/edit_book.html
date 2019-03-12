@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改书籍信息</title>
+</head>
+<body>
+<h1>编辑书名</h1>
+<form class="table table-bordered" action="/edit_book/" method="post">
+    <p>书名：<input type="text" name="book_title" value="{{ book.title }}"></p>
+    <input type="hidden" name="id" value="{{ book.id }}">
+    <p>出版社：
+        <select name="publisher_id">
+            {% for publisher in publisher_list %}
+
+                {% if book.publisher_id == publisher.id %}
+                    {#  当前书籍关联的出版社才默认选中#}
+                    <option selected value="{{ publisher.id }}">{{ publisher.name }}</option>
+                {% else %}
+                    {# 其他的出版社不选中 #}
+                    <option value="{{ publisher.id }}">{{ publisher.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </p>
+    <p><input class="btn btn-primary" type="submit" value="提交"></p>
+    <p>{{ error }}</p>
+</form>
+</body>
+</html>
