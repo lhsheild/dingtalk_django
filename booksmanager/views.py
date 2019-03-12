@@ -46,3 +46,8 @@ def edit_book(request):
         edit_obj.publisher_id = new_publisher_id
         edit_obj.save()
         return redirect('/books_list/')
+
+
+def author_list(request):
+    all_author = books_models.Author.objects.all()
+    return render(request, 'author_list.html', {'author_list': all_author})

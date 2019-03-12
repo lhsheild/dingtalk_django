@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^add_book/', books_views.add_book),
     url(r'^delete_book/', books_views.delete_book),
     url(r'^edit_book/', books_views.edit_book),
+    url(r'^author_list/', books_views.author_list),
 
     url(r'^', main_views.index),
 ]
