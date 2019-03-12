@@ -5,6 +5,7 @@ from django.db import models
 class Publisher(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64, null=False, unique=True)
+    addr = models.CharField(max_length=128)
 
 
 class Book(models.Model):

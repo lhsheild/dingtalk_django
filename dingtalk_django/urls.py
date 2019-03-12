@@ -38,6 +38,9 @@ urlpatterns = [
 
     # booksmanager
     url(r'^books_list/', books_views.books_list),
+    url(r'^add_book/', books_views.add_book),
+    url(r'^delete_book/', books_views.delete_book),
+    url(r'^edit_book/', books_views.edit_book),
 
     url(r'^', main_views.index),
 ]

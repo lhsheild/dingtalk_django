@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'dingtalk_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mydb',
-        'USER':'root',
-        'PASSWORD':123456,
+        'USER':'postgres',
+        'PASSWORD':'123456',
         'HOST':'127.0.0.1',
-        'PORT':'3306'
+        'PORT':'5432'
     }
 }
 

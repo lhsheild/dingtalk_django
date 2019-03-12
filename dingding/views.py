@@ -13,19 +13,19 @@ def ding_shenpi(request):
     header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1', }
     ret = requests.get('https://oapi.dingtalk.com/gettoken?appkey={}&appsecret={}'.format(appkey, appsecret),
                        headers=header)
-    # print(ret.json())
-    # print(type(ret.json()))
-    access_token = ret.json()['access_token']
-    # print(access_token)
+    print('ret : ', ret.json(), 'type : ',type(ret.json()))
+    access_token = ret.json().get('access_token')
+    print('access_token : ',access_token)
 
     # 批量获取审批实例ID
     r = requests.post('https://oapi.dingtalk.com/topapi/processinstance/listids?access_token={}'.format(access_token),
                       data={'process_code': 'PROC-ELYJ1A4W-SXJ37TP95QVKM4F1BV143-L84IYXSJ-4',
                             'start_time': '1544406815'})
     result = r.json()
-    result = result['result']
-    # print(type(result), result)
-    shenpi_list = result['list']
+    print(result)
+    result = result.get('result')
+    print(type(result), result)
+    shenpi_list = result.get('list')
 
     # 通过审批实例ID获取审批详细数据(多线程)
     shenpi_shili_url = 'https://oapi.dingtalk.com/topapi/processinstance/get?access_token={}'.format(access_token)
