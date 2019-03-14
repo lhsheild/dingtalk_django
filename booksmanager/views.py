@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 import booksmanager.models as books_models
 
 
@@ -51,3 +51,42 @@ def edit_book(request):
 def author_list(request):
     all_author = books_models.Author.objects.all()
     return render(request, 'author_list.html', {'author_list': all_author})
+
+
+def add_author(request):
+    if request.method=='POST':
+        new_author_name = request.POST.get('author_name')
+        books = request.POST.getlist('books')
+        new_author = books_models.Author.objects.create(name=new_author_name)
+        new_author.book.set(books)
+        new_author.save()
+        return redirect('/author_list/')
+    return render(request, 'add_author.html', {'books': books_models.Book.objects.all()})
+
+
+def delete_author(request):
+    delete_id = request.GET.get('id')
+    delete_obj = books_models.Author.objects.get(id=delete_id)
+    delete_obj.delete()
+    return redirect('/author_list/')
+
+
+def edit_author(request):
+    if request.method == 'POST':
+        edit_id = request.POST.get('author_id')
+        edit_author_name = request.POST.get('author_name')
+        edit_author_books = request.POST.getlist('book_id')
+        edit_author_obj = books_models.Author.objects.get(id=edit_id)
+        edit_author_obj.name = edit_author_name
+        edit_author_obj.book.set(edit_author_books)
+        edit_author_obj.save()
+        return redirect('/author_list/')
+
+    edit_id = request.GET.get('id')
+    edit_author_obj = books_models.Author.objects.get(id=edit_id)
+    all_books = books_models.Book.objects.all()
+    return render(request, 'edit_author.html', {'author': edit_author_obj, 'books':all_books})
+
+
+def template_test(request):
+    return render(request, 't_test.html')

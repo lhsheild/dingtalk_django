@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>书籍展示</title>
-    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" type="text/css">
+    {% load static %}
+    <link rel="stylesheet" href=" {% static '/css/font-awesome.min.css' %}" type="text/css">
 </head>
 <body>
 <h1>所有的书籍都在这里！</h1>

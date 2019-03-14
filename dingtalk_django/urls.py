@@ -42,6 +42,10 @@ urlpatterns = [
     url(r'^delete_book/', books_views.delete_book),
     url(r'^edit_book/', books_views.edit_book),
     url(r'^author_list/', books_views.author_list),
+    url(r'^add_author/', books_views.add_author),
+    url(r'^delete_author/', books_views.delete_author),
+    url(r'^edit_author/', books_views.edit_author),
+    url(r'^t_test/', books_views.template_test),
 
     url(r'^', main_views.index),
 ]
