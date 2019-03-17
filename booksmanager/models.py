@@ -24,3 +24,4 @@ class Author(models.Model):
 
     def __str__(self):
         return "<Author Object:{}>".format(self.name)
+
