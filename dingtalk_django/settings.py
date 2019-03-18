@@ -25,7 +25,7 @@ SECRET_KEY = '^w1@&@q$m)8j1^i$u4e%)zv&j&fseggu#*x0eo=f)be#ohf=%h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.147','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'booksmanager.apps.BooksmanagerConfig',
     'dingding.apps.DingdingConfig',
+    'queryfunc.apps.QueryfuncConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,10 +81,10 @@ WSGI_APPLICATION = 'dingtalk_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
+        'NAME': 'queryfunc',
         'USER':'postgres',
         'PASSWORD':'123456',
-        'HOST':'127.0.0.1',
+        'HOST':'192.168.8.31',
         'PORT':'5432'
     }
 }
