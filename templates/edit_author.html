@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改作者信息</title>
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" type="text/css">
+    {% load static %}
+    <link rel="stylesheet" href=" {% static '/css/font-awesome.min.css' %}" type="text/css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3"></div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">编辑作者</div>
+            <div class="panel-body">
+                <form class="form-horizontal" action="/edit_author/" method="post">
+                    <div class="form-group">
+                        <label for="author_name" class="col-sm-2 control-label">作者姓名：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="author_name" placeholder="作者名"
+                                   name="author_name" value="{{ author.name }}">
+                            <input type="hidden" name="author_id" value="{{ author.id }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="book_id" class="col-sm-2 control-label">作品：</label>
+                        <div class="col-sm-10">
+                            <select multiple class="form-control" name="book_id" id="book_id">
+                                {% for book in books %}
+                                    {% if book in author.book.all %}
+                                        {#  当前书籍关联的出版社才默认选中#}
+                                        <option selected value="{{ book.id }}">{{ book.title }}</option>
+                                    {% else %}
+                                        {# 其他的出版社不选中 #}
+                                        <option value="{{ book.id }}">{{ book.title }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        </div>
+    </div>
+</div>
+</body>
+</html>

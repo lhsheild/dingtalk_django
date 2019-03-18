@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block page-main %}
+    <div class="page-header">
+        <h1>主界面
+            <small>系统入口</small>
+        </h1>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">基本信息 <span class="glyphicon glyphicon-credit-card pull-right"></span></h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="headPicture" class="col-sm-2 control-label">头像</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="" id="headPicture" placeholder="头像">
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">属性</label>
+                    <div class="col-sm-10">
+                        <div class="radio">
+                            <label>
+                                <input type="radio">我是一个好人
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio">我是一个坏人
+                            </label></div>
+                        <div class="radio">
+                            <label disabled>
+                                <input type="radio" disabled>我不是一个人
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

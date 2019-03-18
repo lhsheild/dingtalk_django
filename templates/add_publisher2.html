@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block page-main %}
+    <div class="container" style="margin-top: 100px">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3"></div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">添加出版社</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="" method="post">
+                        <p>出版社：<input type="text" name="publisher"></p>
+                        <p><input type="submit" value="提交"></p>
+                        <p>{{ error }}</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

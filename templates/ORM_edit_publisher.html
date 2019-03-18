@@ -8,7 +8,7 @@
 <body>
 <h1>编辑出版社</h1>
 <form class="table table-bordered" action="" method="post">
-    <p>出版社：<input type="text" name="publisher_name" value="{{ publisher.title }}"></p>
+    <p>出版社：<input type="text" name="publisher_name" value="{{ publisher.name }}"></p>
     <input type="hidden" name="id" value="{{ publisher.id }}">
     <p><input  class="btn btn-primary" type="submit" value="提交" ></p>
     <p>{{ error }}</p>

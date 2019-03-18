@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
+from django.views import View
 import booksmanager.models as books_models
 
 
 # Create your views here.
 def books_list(request):
     all_books = books_models.Book.objects.all()
-    return render(request, 'book_list.html', {'books': all_books})
+    return render(request, 'books_list_2.html', {'books': all_books})
 
 
 def add_book(request):
@@ -50,11 +52,11 @@ def edit_book(request):
 
 def author_list(request):
     all_author = books_models.Author.objects.all()
-    return render(request, 'author_list.html', {'author_list': all_author})
+    return render(request, 'author_list2.html', {'author_list': all_author})
 
 
 def add_author(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         new_author_name = request.POST.get('author_name')
         books = request.POST.getlist('books')
         new_author = books_models.Author.objects.create(name=new_author_name)
@@ -85,8 +87,36 @@ def edit_author(request):
     edit_id = request.GET.get('id')
     edit_author_obj = books_models.Author.objects.get(id=edit_id)
     all_books = books_models.Book.objects.all()
-    return render(request, 'edit_author.html', {'author': edit_author_obj, 'books':all_books})
+    return render(request, 'edit_author.html', {'author': edit_author_obj, 'books': all_books})
 
 
 def template_test(request):
     return render(request, 't_test.html')
+
+
+class UploadFileTest(View):
+    def get(self, request):
+        return render(request, 'upload_test.html')
+
+    def post(self, request):
+        print(request.FILES.get('upload_file'))
+        file_name = request.FILES['upload_file'].name
+
+        with open(file_name, 'wb') as f:
+            for chunk in request.FILES['upload_file'].chunks():
+                f.write(chunk)
+        return HttpResponse('OK!')
+
+
+class JSONTest(View):
+    def __init__(self):
+        super(JSONTest, self).__init__()
+        self.data = {'name':'black', 'age':18}
+        self.data2 = [1,2,3,4,88]
+
+    def get(self, request):
+        # return JsonResponse(data=self.data)  # 仅接收字典
+        return JsonResponse(data=self.data2, safe=False)
+
+    def post(self, request):
+        pass

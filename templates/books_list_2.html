@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block page-main %}
+    <div class="page-header">
+        <h1>书籍管理页面
+            <small>书籍信息</small>
+        </h1>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">书籍管理 <span class="glyphicon glyphicon-credit-card pull-right"></span></h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">搜索</button>
+                                </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-md-3 pull-right">
+                    <a href="/add_book/" class="btn btn-success pull-right">添加书籍</a>
+                </div>
+            </div><!-- /.row -->
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>publisher</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in books %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.title }}</td>
+                        <td>{{ i.publisher.name }}</td>
+                        <td><a href="/delete_book/?id={{ i.id }}">删除</a><a href="/edit_book/?id={{ i.id }}">编辑</a></td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block book_class %}
+    active
+{% endblock %}

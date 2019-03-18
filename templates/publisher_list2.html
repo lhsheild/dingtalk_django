@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block page-main %}
+    <div class="page-header">
+        <h1>出版社管理页面
+            <small>出版社信息</small>
+        </h1>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">出版社管理 <span class="glyphicon glyphicon-credit-card pull-right"></span></h3>
+        </div>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">搜索</button>
+                                </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-md-3 pull-right">
+                    <a href="/add_publisher/" class="btn btn-success pull-right">添加出版社</a>
+                </div>
+            </div><!-- /.row -->
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>出版社</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for publisher in publisher_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ publisher.id }}</td>
+                        <td>{{ publisher.name }}</td>
+                        <td>
+                            <a class="btn btn-danger" href="/delete_publisher/?id={{ publisher.id }}">删除</a>
+                            <a class="btn btn-danger" href="/delete_publisher/{{ publisher.id }}/">删除2</a>
+                            <a class="btn btn-info" href="/edit_publisher/?id={{ publisher.id }}">编辑</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-info" href="/add_publisher/">添加出版社</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block publisher_class %}
+    active
+{% endblock %}

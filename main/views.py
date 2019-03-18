@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, HttpResponse
-from main.models import UserInfo, Publisher
-
-import time
+from django.views import View
+from main.models import UserInfo
+from booksmanager.models import Publisher
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'main.html')
+    return render(request, 'home.html')
 
 
 def mi(request):
@@ -42,20 +42,35 @@ def add_user(request):
 
 def publisher_list(request):
     object = Publisher.objects.all()
-    return render(request, 'ORM_publisher_list.html', {'publisher_list': object})
+    return render(request, 'publisher_list2.html', {'publisher_list': object})
 
 
 def add_publisher(request):
     if request.method == 'GET':
-        return render(request, 'ORM_add_publisher.html')
+        return render(request, 'add_publisher2.html')
     else:
         publisher_name = request.POST.get('publisher')
         if publisher_name:
-            Publisher.objects.create(title=publisher_name)
+            Publisher.objects.create(name=publisher_name)
             return redirect('/publisher_list/')
         else:
             error_msg = '出版社不能为空!'
-        return render(request, 'ORM_add_publisher.html', {'error':error_msg})
+        return render(request, 'add_publisher2.html', {'error': error_msg})
+
+
+# CBV添加出版社
+class AddPublisher(View):
+    def get(self, request):
+        return render(request, 'add_publisher2.html')
+
+    def post(self, request):
+        publisher_name = request.POST.get('publisher')
+        if publisher_name:
+            Publisher.objects.create(name=publisher_name)
+            return redirect('/publisher_list/')
+        else:
+            error_msg = '出版社不能为空!'
+        return render(request, 'add_publisher2.html', {'error': error_msg})
 
 
 def delete_publisher(request):
@@ -68,17 +83,33 @@ def delete_publisher(request):
         else:
             return HttpResponse('找不到该数据')
 
+def delete_publisher2(request, del_id):
+    if del_id:
+        del_obj = Publisher.objects.get(id=del_id)
+        del_obj.delete()
+        return redirect('/publisher_list/')
+    else:
+        return HttpResponse('找不到该数据')
+
+class DeletePublisher(View):
+    def get(self,request,del_id):
+        if del_id:
+            del_obj = Publisher.objects.get(id=del_id)
+            del_obj.delete()
+            return redirect('/publisher_list/')
+        else:
+            return HttpResponse('找不到该数据')
 
 def edit_publisher(request):
     if request.method == 'GET':
         edit_id = request.GET.get('id')
         if edit_id:
             edit_obj = Publisher.objects.get(id=edit_id)
-            return render(request, 'ORM_edit_publisher.html', {'publisher':edit_obj})
+            return render(request, 'ORM_edit_publisher.html', {'publisher': edit_obj})
     else:
         new_publisher_name = request.POST.get('publisher_name')
         edit_obj = Publisher.objects.get(id=request.POST.get('id'))
-        edit_obj.title = new_publisher_name
+        edit_obj.name = new_publisher_name
         edit_obj.save()
         return redirect('/publisher_list/')
 
