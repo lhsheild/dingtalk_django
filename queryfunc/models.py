@@ -8,7 +8,10 @@ class Publisher(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=32)
-    publisher = models.ForeignKey(to='Publisher')
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=99.99)
+    stock = models.IntegerField(default=1000)
+    sold = models.IntegerField(default=0)
+    publisher = models.ForeignKey(to='Publisher', related_name='books')
 
 
 class Author(models.Model):

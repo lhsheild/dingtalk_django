@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'booksmanager.apps.BooksmanagerConfig',
     'dingding.apps.DingdingConfig',
     'queryfunc.apps.QueryfuncConfig',
+    'orm.apps.OrmConfig',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ DATABASES = {
         'NAME': 'queryfunc',
         'USER':'postgres',
         'PASSWORD':'123456',
-        'HOST':'192.168.8.31',
+        'HOST':'127.0.0.1',
         'PORT':'5432'
     }
 }
@@ -130,3 +131,24 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 APPEND_SLASH = True
+
+BASE_LOG_DIR = os.path.join(BASE_DIR, "log")
+
+LOGGING={
+    'version':1,
+    'disable_existing_loggers':False,
+    'handlers':{
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers':{
+        'django.db.backends':{
+            'handlers':['console'],
+            'propagate':True,
+            'level':'DEBUG',
+        },
+    }
+}
+

@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/queryfunc</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="queryfunc@localhost [2]" uuid="8b72ef9b-e154-41db-b232-98be2a118506">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/queryfunc</jdbc-url>
+    </data-source>
   </component>
 </project>
