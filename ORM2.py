@@ -10,9 +10,11 @@ if __name__ == '__main__':
     from django.db.models import *
     from orm import models
 
-    print(models.Book.objects.all())
+    # print(models.Book.objects.all())
+    #
+    # '''聚合分组'''
+    # ret0 = models.Book.objects.all().annotate(author_num=Count('author'))
+    # print(ret0.values('title','author_num'))
 
-    '''聚合分组'''
-    ret0 = models.Book.objects.all().annotate(author_num=Count('author'))
-    print(ret0.values('title','author_num'))
-
+    objs = [models.Book(title='难堪{}'.format(i)) for i in range(100)]
+    models.Book.objects.bulk_create(objs, 10)

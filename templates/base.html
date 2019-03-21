@@ -15,7 +15,9 @@
     <link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="../static/css/dashboard.css" rel="stylesheet">
+    {% load static %}
+
+<link href="{% static 'css/dashboard.css' %}" type="text/css" rel="stylesheet">
     
     {% block page-css %}
     

@@ -19,6 +19,7 @@ from main import views as main_views
 from dingding import views as ding_views
 from booksmanager import views as books_views
 from booksmanager02 import urls as books02_urls
+from orm import views as orm_views
 
 
 urlpatterns = [
@@ -55,5 +56,6 @@ urlpatterns = [
 
     url(r'^$', main_views.index),
 
-    url(r'^booksmanager02/', include(books02_urls))
+    url(r'^booksmanager02/', include(books02_urls)),
+    url(r'^books/(?P<p>[0-9]+)/$', orm_views.books),
 ]

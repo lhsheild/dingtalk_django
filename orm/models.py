@@ -4,16 +4,16 @@ from django.db import models
 # 书
 class Book(models.Model):
     title = models.CharField(max_length=32)
-    publish_date = models.DateField(auto_now_add=True)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    memo = models.TextField(null=True)
-    # 创建外键，关联publish
-    publisher = models.ForeignKey(to="Publisher")
-    # 创建多对多关联author
-    author = models.ManyToManyField(to="Author")
-
-    def __str__(self):
-        return self.title
+#     publish_date = models.DateField(auto_now_add=True, null=True)
+#     price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+#     memo = models.TextField(null=True)
+#     # 创建外键，关联publish
+#     publisher = models.ForeignKey(to="Publisher")
+#     # 创建多对多关联author
+#     author = models.ManyToManyField(to="Author")
+#
+#     def __str__(self):
+#         return self.title
 
 
 # 出版社

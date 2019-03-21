@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block page-main %}
+    <div class="page-header">
+        <h1>书籍列表
+            <small>test</small>
+        </h1>
+    </div>
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">书籍列表 <i class="fa fa-thumb-tack pull-right"></i></div>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">搜索</button>
+                                </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-md-3 pull-right">
+                    <a href="#" class="btn btn-success pull-right">添加书籍</a>
+                </div>
+
+            </div><!-- /.row -->
+
+            <table class="table table-bordered table-hover table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>id</th>
+                    <th>名字</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for  book in books %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>
+                            <a class="btn btn-danger" href="/delete_author/?id={{ author.id }}"><i
+                                    class="fa fa-trash-o"> 删除</i></a>
+                            <a class="btn btn-info" href="/edit_author/?id={{ author.id }}">编辑</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">暂时没有数据哦~</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation" class="text-right">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% for i in total_page %}
+                        {{ i|safe }}
+                    {% endfor %}
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+{% endblock %}
