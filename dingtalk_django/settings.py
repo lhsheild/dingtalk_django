@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'dingtalk_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'queryfunc',
+        'NAME': 'luffycity',
         'USER':'postgres',
-        'PASSWORD':'123456',
-        'HOST':'127.0.0.1',
-        'PORT':'5432'
+        'PASSWORD':'lh18178007095',
+        'HOST':'113.16.255.12',
+        'PORT':'11011'
     }
 }
 
