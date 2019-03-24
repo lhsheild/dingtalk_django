@@ -57,5 +57,5 @@ urlpatterns = [
     url(r'^$', main_views.index),
 
     url(r'^booksmanager02/', include(books02_urls)),
-    url(r'^books/(?P<p>[0-9]+)/$', orm_views.books),
+    url(r'^books/$', orm_views.books),
 ]
