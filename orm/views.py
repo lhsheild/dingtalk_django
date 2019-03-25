@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from orm import models
+from django.views import View
 
 
 # Create your views here.
@@ -18,18 +19,17 @@ def books(request):
 
     return render(request, 'books.html', {'books': current_page_books, 'total_page': my_page_html})
 
-
     # # 获取用户选择页数
     # p = request.GET.get('page')
-    #
+
     # # 所有书籍对象
     # book_objs = models.Book.objects.all()
     # total = book_objs.count()
     # print('total:', total)
-    #
+
     # # 每页的数量
     # per_page = 10
-    #
+
     # # 分页的页数
     # total_page, m = divmod(total, per_page)
     # if m:
@@ -40,7 +40,7 @@ def books(request):
     #         p = total_page
     # except Exception as e:
     #     p = 1
-    #
+
     # # 当前页面的数据在数据库的取值范围
     # data_start = (p - 1) * 10
     # data_end = p * 10
