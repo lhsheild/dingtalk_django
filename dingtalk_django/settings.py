@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'dingtalk_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'luffycity',
+        'NAME': 'sewage_test',
         'USER':'postgres',
         'PASSWORD':'lh18178007095',
         'HOST':'113.16.255.12',
