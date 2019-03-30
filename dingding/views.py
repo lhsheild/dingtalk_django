@@ -28,7 +28,7 @@ def ding_shenpi(request):
             cursor = next_cursor
         # 批量获取审批实例ID
         r = requests.post('https://oapi.dingtalk.com/topapi/processinstance/listids?access_token={}'.format(access_token),
-                          data={'process_code': 'PROC-ELYJ1A4W-7WJ39FFR3417CDU1EEOZ2-D8YFWXSJ-2',
+                          data={'process_code': 'PROC-ELYJ1A4W-SXJ37TP95QVKM4F1BV143-L84IYXSJ-4',
                                 'start_time': '1544406815',
                                 'cursor': cursor})
         result = r.json()
@@ -65,12 +65,87 @@ def ding_shenpi(request):
 def get_shenpi_data(url, id):
     shenpi_shili = requests.post(url, data={'process_instance_id': id})
     shenpi_shili_json = shenpi_shili.json()
-    all_data = shenpi_shili_json.get('process_instance').get('form_component_values')
-    print(all_data)
-    if all_data[1].get('name') == '监测点物探号':
-        func_container(shenpi_shili_json)
-    else:
-        func_container_nogeo(shenpi_shili_json)
+    # all_data = shenpi_shili_json.get('process_instance').get('form_component_values')
+    # print(shenpi_shili_json)
+    # if all_data[1].get('name') == '监测点物探号':
+    #     func_container(shenpi_shili_json)
+    # else:
+    #     func_container_nogeo(shenpi_shili_json)
+    func_unable(shenpi_shili_json)
+
+
+def func_unable(data_dic):
+    all_data = data_dic.get('process_instance').get('form_component_values')
+    name = all_data[0].get('value').strip()  # 监测点
+    people = data_dic.get('process_instance').get('title').split('提交')[0]  # 监测者/采样者
+    # print(name)
+    # geophysical_point = all_data[1].get('value').strip()  # 物探点号
+    # print(geophysical_point)
+    work_function = 4
+    upload_time = json.loads(all_data[1].get('value'))[0]  # 审批提交时间
+    # print(upload_time)
+    year_s, mon_s, day_s = upload_time.split(' ')[0].split('-')  # 年月日
+    date = datetime.datetime(int(year_s), int(mon_s), int(day_s)).date()  # 检测日期/采样日期
+    # print(date)
+    # img_folder_path = r'E:\Projects\Python_Projects\Sewage\media\img'
+    img_folder_path = '/home/lh/Sewage/media/img'  # linux
+
+    exterior_photo_link_lst = json.loads(all_data[2].get('value'))  # 钉钉回调的外景照链接
+    exterior_photo_lst = []
+    if exterior_photo_link_lst is not None:
+        for counter, exterior_photo_link in enumerate(exterior_photo_link_lst):
+            img_name = '{}_{}_{}'.format(name, 'exterior', counter)
+            img_path = save_img((exterior_photo_link, img_name, upload_time, img_folder_path))
+            exterior_photo_lst.append(img_path)
+    # print(exterior_photo_lst)
+
+    water_photo_link_lst = json.loads(all_data[3].get('value'))  # 钉钉回调的水流照链接
+    water_photo_lst = []
+    if water_photo_link_lst is not None:
+        for counter, water_photo_link in enumerate(water_photo_link_lst):
+            img_name = '{}_{}_{}'.format(name, 'water', counter)
+            img_path = save_img((water_photo_link, img_name, upload_time, img_folder_path))
+            water_photo_lst.append(img_path)
+    # print(water_photo_lst)
+
+    not_monitor_reason = all_data[4].get('value').strip()
+    # print(not_monitor_reason)
+
+    try:
+        from django.db import transaction
+        with transaction.atomic():
+            if models.DingCallbackMonitorpoint.objects.all().filter(name=name):
+                monitor_obj = models.DingCallbackMonitorpoint.objects.all().filter(name=name).first()
+                if exterior_photo_lst:
+                    if monitor_obj.exterior_photo and json.dumps(json.loads(monitor_obj.exterior_photo)) is not 'null':
+                        monitor_obj.exterior_photo = json.dumps(
+                            json.loads(monitor_obj.exterior_photo) + exterior_photo_lst)
+                    else:
+                        monitor_obj.exterior_photo = json.dumps(exterior_photo_lst)
+                if water_photo_lst:
+                    if monitor_obj.water_flow_photo and json.dumps(
+                            json.loads(monitor_obj.water_flow_photo)) is not 'null':
+                        monitor_obj.water_flow_photo = json.dumps(
+                            json.loads(monitor_obj.water_flow_photo) + water_photo_lst)
+                    else:
+                        monitor_obj.water_flow_photo = json.dumps(water_photo_lst)
+            else:
+                models.DingCallbackMonitorpoint.objects.create(
+                    name=name,
+                    is_monitor=0,
+                    geophysical_point=name,
+                    work_function=work_function,
+                    not_monitor_reason=not_monitor_reason,
+                    exterior_photo=json.dumps(exterior_photo_lst),
+                    water_flow_photo=json.dumps(water_photo_lst),
+                    people=people,
+                    start_time=date
+                )
+            print('MonitorPoint created!!')
+    except Exception as e:
+        print(e)
+
+
 
 
 def save_img(in_args):
@@ -115,7 +190,8 @@ def func_container_nogeo(data_dic):
     year_s, mon_s, day_s = upload_time.split(' ')[0].split('-')  # 年月日
     date = datetime.datetime(int(year_s), int(mon_s), int(day_s)).date()  # 检测日期/采样日期
     # print(date)
-    img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    # img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    img_folder = '/home/lh/Sewage/media/img'  # linux
 
     exterior_photo_link_lst = json.loads(all_data[2].get('value'))  # 钉钉回调的外景照链接
     exterior_photo_lst = []
@@ -279,7 +355,8 @@ def func_container(data_dic):
     year_s, mon_s, day_s = upload_time.split(' ')[0].split('-')  # 年月日
     date = datetime.datetime(int(year_s), int(mon_s), int(day_s)).date()  # 检测日期/采样日期
     # print(date)
-    img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    # img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    img_folder = '/home/lh/Sewage/media/img'  # linux
 
     exterior_photo_link_lst = json.loads(all_data[3].get('value'))  # 钉钉回调的外景照链接
     exterior_photo_lst = []
