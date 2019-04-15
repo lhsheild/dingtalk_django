@@ -39,6 +39,10 @@ urlpatterns = [
     # dingding
     url(r'^dingding/', ding_views.ding_shenpi),
 
+    # 回调失败测试
+    url(r'^register_callback/$', ding_views.register_callback),
+    url(r'^get_bms_callback/$', ding_views.get_bms_callback),
+
     # booksmanager
     url(r'^books_list/$', books_views.books_list),
     url(r'^add_book/$', books_views.add_book),

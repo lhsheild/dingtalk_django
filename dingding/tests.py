@@ -1,9 +1,7 @@
-from django.test import TestCase
-
 # Create your tests here.
-import os
-import json
 import datetime
+import json
+import os
 
 import requests
 
@@ -16,14 +14,14 @@ def save_img(in_args):
     file_path = in_args[3]  # my_setting.img_folder_path
     year_s, mon_s, day_s = upload_time.split(' ')[0].split('-')
     save_path = '{}{}{}{}{}{}{}'.format(file_path, os.sep, year_s, os.sep, mon_s, os.sep, day_s)
-    print('save_path:',save_path)
+    print('save_path:', save_path)
     try:
         if not os.path.exists(save_path):
             os.makedirs(save_path)
             print(save_path)
         file_suffix = os.path.splitext(img_url)[1]
         filename = '{}{}{}{}'.format(save_path, os.sep, file_name, file_suffix)
-        print('filename:' ,filename)
+        print('filename:', filename)
 
         r = requests.get(img_url, stream=True)
         with open(filename, 'wb') as f:
@@ -376,49 +374,33 @@ if __name__ == '__main__':
     from dingding import models
 
     data_dic = {'errcode': 0, 'process_instance': {'attached_process_instance_ids': [], 'biz_action': 'NONE',
-                                                   'business_id': '201903080902000454422',
-                                                   'create_time': '2019-03-08 09:02:45',
-                                                   'finish_time': '2019-03-08 09:08:39',
-                                                   'form_component_values': [{'name': '监测点', 'value': 'JD503'},
-                                                                             {
-                                                       'ext_value': '当前时间:2019-03-08 09:02:42\n当前地点:广西壮族自治区南宁市青秀区南湖街道茶花园路南湖碧园',
-                                                       'name': '["当前时间","当前地点"]',
-                                                       'value': '["2019-03-08 09:02:42",108.363735,22.825245,"广西壮族自治区南宁市青秀区南湖街道茶花园路南湖碧园",30]'},
+                                                   'business_id': '201904130838000200615',
+                                                   'create_time': '2019-04-13 08:38:20',
+                                                   'finish_time': '2019-04-13 08:46:05',
+                                                   'form_component_values': [{'name': '监测点', 'value': 'FHJ2-3'},
+                                                                             {'name': '监测点物探号', 'value': '42NQYS27'}, {
+                                                                                 'ext_value': '当前时间:2019-04-13 08:34:57\n当前地点:广西壮族自治区南宁市江南区江南街道宏德路150-19号南宁市自行车总厂生活区',
+                                                                                 'name': '["当前时间","当前地点"]',
+                                                                                 'value': '["2019-04-13 08:34:57",108.2763232421875,22.802205946180557,"广西壮族自治区南宁市江南区江南街道宏德路150-19号南宁市自行车总厂生活区",65]'},
                                                                              {'name': '监测点外景照',
-                                                                              'value': '["https://static.dingtalk.com/media/lADPBE1XX5EWjnLNBlTNBDg_1080_1620.jpg"]'},
+                                                                              'value': '["https://static.dingtalk.com/media/lADPBE1XX-MZirDNBQDNAtA_720_1280.jpg"]'},
                                                                              {'name': '监测点水流照',
-                                                                              'value': '["https://static.dingtalk.com/media/lADPBE1XX5EWcBPNBlTNBDg_1080_1620.jpg"]'},
-                                                                             {'name': '监测点工作照',
-                                                                              'value': '["https://static.dingtalk.com/media/lADPBE1XX5EXY-XNBlTNBDg_1080_1620.jpg"]'},
-                                                                             {'name': '检测时间段', 'value': '8:00'},
-                                                                             {'name': '第一次检测时长', 'value': '30'},
-                                                                             {'name': '第一次检测水量', 'value': '1000'},
-                                                                             {'name': '第二次检测时长', 'value': '10'},
-                                                                             {'name': '第二次检测水量', 'value': '500'},
-                                                                             {'name': '第三次检测时长', 'value': '60'},
-                                                                             {'name': '第三次检测水量', 'value': '10000'},
-                                                                             {'name': '样品编号', 'value': '120'},
-                                                                             {'name': '检测指标',
-                                                                              'value': '["SS","COD NH3-N TP TN"]'},
-                                                                             {'name': '样品照片',
-                                                                              'value': '["https://static.dingtalk.com/media/lADPBE1XX5EXfdLNBlTNBDg_1080_1620.jpg"]'},
-                                                                             {'name': '颜色', 'value': '黄色'},
-                                                                             {'name': '气味', 'value': '微臭'},
-                                                                             {'name': '浑浊度', 'value': '浑浊'},
-                                                                             {'name': '是否合格', 'value': 'null'}],
+                                                                              'value': '["https://static.dingtalk.com/media/lADPBE1XX-Ma4WnNBQDNAtA_720_1280.jpg"]'},
+                                                                             {'name': '无法监测原因', 'value': '无水流'},
+                                                                             {'name': '是否合格', 'value': '是'}],
                                                    'operation_records': [
-                                                       {'date': '2019-03-08 09:02:45', 'operation_result': 'NONE',
+                                                       {'date': '2019-04-13 08:38:20', 'operation_result': 'NONE',
                                                         'operation_type': 'START_PROCESS_INSTANCE',
-                                                        'userid': '250429441639901593'},
-                                                       {'date': '2019-03-08 09:08:39', 'operation_result': 'REFUSE',
-                                                        'operation_type': 'EXECUTE_TASK_NORMAL', 'remark': '水样照片',
+                                                        'userid': '166869521621373591'},
+                                                       {'date': '2019-04-13 08:46:04', 'operation_result': 'REFUSE',
+                                                        'operation_type': 'EXECUTE_TASK_NORMAL', 'remark': '管口没有拍到',
                                                         'userid': '215312413421401344'}],
-                                                   'originator_dept_id': '104659413', 'originator_dept_name': '水质组',
-                                                   'originator_userid': '250429441639901593', 'result': 'refuse',
+                                                   'originator_dept_id': '104846032', 'originator_dept_name': '实习生',
+                                                   'originator_userid': '166869521621373591', 'result': 'refuse',
                                                    'status': 'COMPLETED', 'tasks': [
-            {'create_time': '2019-03-08 09:02:45', 'finish_time': '2019-03-08 09:08:39', 'task_result': 'REFUSE',
-             'task_status': 'COMPLETED', 'taskid': '53703837851', 'userid': '215312413421401344'}],
-                                                   'title': '黄日蔚提交的流量水质监测（容器法）'}, 'request_id': 'zg55c9f58pe6'}
+            {'create_time': '2019-04-13 08:38:20', 'finish_time': '2019-04-13 08:46:05', 'task_result': 'REFUSE',
+             'task_status': 'COMPLETED', 'taskid': '61112265635', 'userid': '215312413421401344'}],
+                                                   'title': '向剑雷提交的流量水质监测（无法监测）'}, 'request_id': 'nfek8j519bnj'}
 
     all_data = data_dic.get('process_instance').get('form_component_values')
     print(all_data)
