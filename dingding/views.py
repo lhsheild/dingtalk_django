@@ -1,5 +1,4 @@
-import datetime
-import json
+import asyncio
 import os
 import time
 from threading import Thread
@@ -10,6 +9,7 @@ from django.shortcuts import HttpResponse
 from dingding import models
 
 
+# Create your views here.
 def ding_shenpi(request):
     # 获取access_token
     appkey = 'dingmdy8p4txyehahwqv'
@@ -48,6 +48,11 @@ def ding_shenpi(request):
     t_list = []
 
     for sub_lst in shenpi_list:
+        # 单线程
+        # shenpi_shili = requests.post(shenpi_shili_url, data={'process_instance_id': i})
+        # shenpi_shili_json = shenpi_shili.json()
+        # print(shenpi_shili_json)
+
         # 多线程
         for i in sub_lst:
             t = Thread(target=get_shenpi_data, args=(shenpi_shili_url, i))
@@ -61,7 +66,6 @@ def ding_shenpi(request):
 def get_shenpi_data(url, id):
     shenpi_shili = requests.post(url, data={'process_instance_id': id})
     shenpi_shili_json = shenpi_shili.json()
-    print(shenpi_shili_json)
     all_data = shenpi_shili_json.get('process_instance').get('form_component_values')
     print(all_data)
     if all_data[1].get('name') == '监测点物探号':
@@ -112,7 +116,8 @@ def func_container_nogeo(data_dic):
     year_s, mon_s, day_s = upload_time.split(' ')[0].split('-')  # 年月日
     date = datetime.datetime(int(year_s), int(mon_s), int(day_s)).date()  # 检测日期/采样日期
     # print(date)
-    img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    # img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    img_folder = '/home/lh/Sewage/media/img'  # linux
 
     exterior_photo_link_lst = json.loads(all_data[2].get('value'))  # 钉钉回调的外景照链接
     exterior_photo_lst = []
@@ -276,7 +281,8 @@ def func_container(data_dic):
     year_s, mon_s, day_s = upload_time.split(' ')[0].split('-')  # 年月日
     date = datetime.datetime(int(year_s), int(mon_s), int(day_s)).date()  # 检测日期/采样日期
     # print(date)
-    img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    # img_folder = r'D:\Project\PythonProjects\Sewage\media\img'
+    img_folder = '/home/lh/Sewage/media/img'  # linux
 
     exterior_photo_link_lst = json.loads(all_data[3].get('value'))  # 钉钉回调的外景照链接
     exterior_photo_lst = []
@@ -427,29 +433,3 @@ def func_container(data_dic):
             print('FlowInfo created!!')
     except Exception as e:
         print(e)
-
-
-# 钉钉失败回调测试
-# 注册回调
-def register_callback(request):
-    # 获取access_token
-    appkey = 'dingeilcpkepl7uskmvy'
-    appsecret = '51PdOJ_UUJv5LGwRb2Tu3_lYq5fsYwecOVf1pAw9i1AP_s-naEXXpJqbJVtN1LOu'
-    ret = requests.get('https://oapi.dingtalk.com/gettoken?appkey={}&appsecret={}'.format(appkey, appsecret))
-    access_token = ret.json().get('access_token')
-
-    # 注册回调事件
-    data = {'call_back_tag': ['bpms_task_change', 'bpms_instance_change'], 'token': '123456',
-            'aes_key': '1234567890123456789012345678901234567890123',
-            'url': 'http://plh.vaiwan.com/get_bms_callback/'}
-    data = json.dumps(data)
-    reg = requests.post('https://oapi.dingtalk.com/call_back/register_call_back?access_token={}'.format(access_token),
-                        data=data)
-    # print('reg_json: ', reg.json())
-    return HttpResponse('register')
-
-
-def get_bms_callback(request):
-    from dingding import my_setting
-    aes_key = my_setting.aes_key
-    key = my_setting.corp_id
